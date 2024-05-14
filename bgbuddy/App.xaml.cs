@@ -9,6 +9,8 @@ namespace bgbuddy
     /// </summary>
     public partial class App : Application
     {
+
+
     }
 
 }

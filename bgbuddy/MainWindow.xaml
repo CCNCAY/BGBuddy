@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bgbuddy"
         mc:Ignorable="d"
-        Title="BGBuddy" Height="700" Width="1150">
+        Title="BGBuddy" Height="700" Width="1150"
+        Left="500" Top="200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="43*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Add Friend" Click="AddFriendButton" HorizontalAlignment="Center" Height="20" Margin="0,29,0,0" VerticalAlignment="Top" Width="98"/>
-        <Button Content="Add Game" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Width="99"/>
-        <TextBox Name="MainTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="24,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="910" Height="620"/>
+        <Button Content="Add Friend" Click="AddFriendButton" HorizontalAlignment="Left" Height="20" Margin="0,24,0,0" VerticalAlignment="Top" Width="98" Grid.Column="1"/>
+        <Button Content="Add Game" Click="AddGameButton" HorizontalAlignment="Center" Margin="0,24,0,0" VerticalAlignment="Top" Width="99"/>
+        <Button Content="Add Session" HorizontalAlignment="Left" Margin="260,24,0,0" VerticalAlignment="Top" Width="99" Grid.Column="1"/>
+        <Button Content="Add Liking" HorizontalAlignment="Left" Margin="134,24,0,0" VerticalAlignment="Top" Width="99" Grid.Column="1"/>
+
+        <TextBox Name="MainTextBox" HorizontalAlignment="Left" Margin="31,99,0,0" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="" VerticalAlignment="Top" Width="1064" Height="525" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
