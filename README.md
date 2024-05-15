@@ -1,6 +1,6 @@
 # BGBbuddy - A personal board game database.
 
-##About.
+About.
 
 I am a board game enthusiast with a collection of 100+ board games. I use boardgamesgeek.com's (BGG) collection manager to showcase my collection so my players can pick from there. 
 However I needed a personal database of my games, that have some of the same stats as BGG (such as minimum and maximum player number), but I also wanted to add some remaraks I do not want to publish.
