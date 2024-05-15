@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.Common;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,60 +32,7 @@ namespace bgbuddy
         public string AddGame = "";
 
 
-        static SqliteConnection CreateConnection()
-        {
 
-            SqliteConnection sqlite_conn;
-            // Create a new database connection:
-            sqlite_conn = new SqliteConnection(@"Data Source=E:\Dropbox\bgbuddy\bgbuddy\db\bgbuddy_test.db");
-         // Open the connection:
-         try
-            {
-                sqlite_conn.Open();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return sqlite_conn;
-        }
-
-        static void CreateTable(SqliteConnection conn)
-        {
-            SqliteCommand sqlite_cmd;
-            string Createsql = "create table name ();";
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = Createsql;
-            sqlite_cmd.ExecuteNonQuery();
-        }
-
-        static void InsertData(SqliteConnection conn)
-        {
-            SqliteCommand sqlite_cmd;
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = "INSERT INTO SampleTable (Col1, Col2) VALUES('Test Text ', 1); ";
-            sqlite_cmd.ExecuteNonQuery();
-        }
-
-        static string ReadData(SqliteConnection conn)
-        {
-            SqliteDataReader sqlite_datareader;
-            SqliteCommand sqlite_cmd;
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT * FROM games";
-            string myreader = "";
-            sqlite_datareader = sqlite_cmd.ExecuteReader();
-
-            while (sqlite_datareader.Read())
-            {
-                myreader += sqlite_datareader.GetString(4);
-                myreader += "\n";
-
-            }
-            
-            conn.Close();
-            return myreader;
-        }
 
 
         public MainWindow()
@@ -93,12 +42,12 @@ namespace bgbuddy
             InitializeComponent();
         }
 
-        private void AddFriendButton(object sender, RoutedEventArgs rea)
+        private void AddFriendButton(object sender, RoutedEventArgs e)
         {
-            MainTextBox.Text = ReadData(CreateConnection());
+            MainTextBox.Text = SqlHandler.ReadData(SqlHandler.CreateConnection(), ["id", "title", "min_player"], "games");
         }
 
-        private void AddGameButton(object sender, RoutedEventArgs rea)
+        private void AddGameButton(object sender, RoutedEventArgs e)
         {
             AddGame addgame = new AddGame();
             addgame.ShowDialog();

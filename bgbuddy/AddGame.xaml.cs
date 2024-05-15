@@ -29,22 +29,36 @@ namespace bgbuddy
         }
 
         private void AddThisGame(object sender, RoutedEventArgs e)
+            //It may happen that a game title is a number, in this case this approach will fetch the wrong game. 
+            //Search manually and add by title.
         {
             string SearchInput  = Search.Text;
-            
-            var BggClient = new HttpClient();
-            HttpResponseMessage BggResponse = BggClient.GetAsync($"https://boardgamegeek.com/xmlapi2/thing?id={SearchInput}").Result;
-            string FullContent = BggResponse.Content.ReadAsStringAsync().Result;
-            string NameRegex = @"(?<=(<name type=.primary.*value=.))(.*)(?=(../>))";
-            string GameName =Regex.Match(FullContent, NameRegex).Value;
+            if (Int32.TryParse(SearchInput, out int SearchInt))
+            {
+                try
+                {
+                    MainWindow.MessageOut = Boardgame.GetAllString(Boardgame.CleanDataFromXml(Boardgame.GetGameById(SearchInt)));
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxResult AddError = MessageBox.Show(ex.Message, "Error");
+                }
+            }
+            else
+            {
+                try
+                {
+                    MainWindow.MessageOut = Boardgame.GetAllString(Boardgame.CleanDataFromXml(Boardgame.GetGameById(Boardgame.GetGamebyTitle(SearchInput))));
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxResult AddError = MessageBox.Show(ex.Message, "Error");
+                }
+            }
+            MessageBoxResult AddMsg = MessageBox.Show("Game added!", "Success!");
 
-           
-
-            MainWindow.MessageOut = GameName;
 
 
-
-            this.Close();
         }
 
         private void CancelButton(object sender, RoutedEventArgs e)
