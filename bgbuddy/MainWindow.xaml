@@ -5,19 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bgbuddy"
         mc:Ignorable="d"
-        Title="BGBuddy" Height="700" Width="1150"
+        Title="BGBuddy" Height="800" Width="1170"
         Left="500" Top="200">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="765*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="59*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Add Friend" Click="AddFriendButton" HorizontalAlignment="Left" Height="20" Margin="0,24,0,0" VerticalAlignment="Top" Width="98" Grid.Column="1"/>
-        <Button Content="Add Game" Click="AddGameButton" HorizontalAlignment="Center" Margin="0,24,0,0" VerticalAlignment="Top" Width="99"/>
-        <Button Content="Add Session" HorizontalAlignment="Left" Margin="260,24,0,0" VerticalAlignment="Top" Width="99" Grid.Column="1"/>
-        <Button Content="Add Liking" HorizontalAlignment="Left" Margin="134,24,0,0" VerticalAlignment="Top" Width="99" Grid.Column="1"/>
+        <Button Content="Friend" Click="AddFriendButton" HorizontalAlignment="Left" Height="20" Margin="80,10,0,0" VerticalAlignment="Top" Width="60" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.75,1.502"/>
+        <Button Content="Game" Click="AddGameButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Height="20" Margin="10,10,0,0" Grid.Column="1" Grid.Row="1"/>
+        <Button Content="Session" Click ="AddSessionButton" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="60" Height="20" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Liking" Click ="AddLikingButton" HorizontalAlignment="Left" Margin="80,40,0,0" VerticalAlignment="Top" Width="60" Height="20" Grid.Row="1" Grid.Column="1"/>
 
-        <TextBox Name="MainTextBox" HorizontalAlignment="Left" Margin="31,99,0,0" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="" VerticalAlignment="Top" Width="1064" Height="525" Grid.ColumnSpan="2"/>
+        <Button Content="Friend" Click="EditFriendButton" HorizontalAlignment="Left" Height="20" Margin="230,10,0,0" VerticalAlignment="Top" Width="60" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Game" Click="EditGameButton" HorizontalAlignment="Left" Margin="160,10,0,0" VerticalAlignment="Top" Width="60" Height="20" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Session" Click ="EditSessionButton" HorizontalAlignment="Left" Margin="160,40,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+        <Button Content="Liking" Click ="EditLikingButton" HorizontalAlignment="Left" Margin="230,40,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+
+        <TextBox x:Name="MainTextBox" FontFamily="Courier New" HorizontalAlignment="Left" Margin="19,105,0,0"  ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto" Text="" VerticalAlignment="Top" Width="1120" Height="620" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="115" Margin="74,20,0,0" VerticalAlignment="Top" Width="0" Grid.Row="1"/>
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="150,6,0,0" VerticalAlignment="Top" Width="150" Grid.RowSpan="2" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="0,6,0,0" VerticalAlignment="Top" Width="150" Grid.Column="1" Grid.RowSpan="2"/>
+
+        <Label Content="ADD" HorizontalAlignment="Left" Margin="5,3,0,0" VerticalAlignment="Top" Height="26" Width="35" Grid.RowSpan="2" Grid.Column="1"/>
+        <Label Content="EDIT" HorizontalAlignment="Left" Margin="154,3,0,0" VerticalAlignment="Top" Height="26" Width="35" Grid.RowSpan="2" Grid.Column="1"/>
+        <Label Content="SHOW GAME BY" HorizontalAlignment="Left" Margin="304,3,0,0" VerticalAlignment="Top" Height="26" Width="105" Grid.RowSpan="2" Grid.Column="1"/>
+
+
+
+        <Button Content="Minimum" Click="ShowByMin" HorizontalAlignment="Left" Height="20" Margin="310,10,0,0" VerticalAlignment="Top" Width="60" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Maximum" Click="ShowByMax" HorizontalAlignment="Left" Margin="310,40,0,0" VerticalAlignment="Top" Width="60" Height="20" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="BGG rate" Click ="ShowByBGGrate" HorizontalAlignment="Left" Margin="380,10,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+        <Button Content="Complex" Click ="ShowByComplexity" HorizontalAlignment="Left" Margin="380,40,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+        <Button Content="All" Click ="ShowAll" HorizontalAlignment="Left" Margin="450,10,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+        <Button Content="Custom" Click ="ShowCustom" HorizontalAlignment="Left" Margin="450,40,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="300,6,0,0" VerticalAlignment="Top" Width="220" Grid.RowSpan="2" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="520,6,0,0" VerticalAlignment="Top" Width="150" Grid.RowSpan="2" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="670,6,0,0" VerticalAlignment="Top" Width="150" Grid.RowSpan="2" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="670,6,0,0" VerticalAlignment="Top" Width="150" Grid.RowSpan="2" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="820,6,0,0" VerticalAlignment="Top" Width="150" Grid.RowSpan="2" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="84" Margin="970,6,0,0" VerticalAlignment="Top" Width="150" Grid.RowSpan="2" Grid.Column="1"/>
+
+        <Label Content="SHOW PLAYERS BY" HorizontalAlignment="Left" Margin="524,3,0,0" VerticalAlignment="Top" Height="26" Width="126" Grid.RowSpan="2" Grid.Column="1"/>
+
+        <Button Content="Session" Click="ShowPlayersBySession" HorizontalAlignment="Left" Height="20" Margin="530,10,0,0" VerticalAlignment="Top" Width="60" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Games" Click="ShowPlayersByGames" HorizontalAlignment="Left" Margin="530,40,0,0" VerticalAlignment="Top" Width="60" Height="20" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="All" Click ="ShowPlayersAll" HorizontalAlignment="Left" Margin="600,10,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+        <Button Content="Custom" Click ="ShowPlayersCustom" HorizontalAlignment="Left" Margin="600,40,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1" Height="20" Grid.Row="1"/>
+
 
     </Grid>
 </Window>

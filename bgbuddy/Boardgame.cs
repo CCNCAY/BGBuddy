@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
@@ -8,11 +9,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace bgbuddy
 {
     public class Boardgame
+
     {
+        private const int MIN_VOTE = 100; // I want at least this many votes so that best player numbers are valid. 
         public required string Title {  get; set; }
         public int Year { get; set; }
         public int BggId { get; set; }
@@ -57,7 +61,7 @@ namespace bgbuddy
             {
                 throw new Exception("This search term did not return any valid result.");
             }
-            else if (Hits == 1 && Regex.IsMatch(ResultText, @"<item type=.boardgame. id"))
+            else if (Hits == 1 && Regex.IsMatch(ResultText, @"<item type=.boardgame. id")) //Interested only if exactly 1 hit and it is a borad game not something else.
             {
                 return Int32.Parse((Regex.Match(ResultText, @"(?<=<item type=.boardgame. id=.)\d+")).Value);
             }
@@ -67,17 +71,42 @@ namespace bgbuddy
             }
         }
 
-        public static int GetBestPlayer(int[] PlayerNumbers)
+        public static int GetBestPlayer(string BggResponse)
+            //Calculates the best player number from BGG votes. 
         {
-            return 0;
+
+            if (SecureFloatGet(BggResponse, "User Suggested Number of Players", @"(?<=User Suggested Number of Players. totalvotes=.)(\d+)") >= MIN_VOTE)
+            {
+                string[] playernumbers = Regex.Matches(BggResponse, @"(?<=<results numplayers=.)\d+(?=.>)").Cast<Match>().Select(m => m.Value).ToArray();
+                string[] votes = Regex.Matches(BggResponse, @"(?<=<result value=.Best. numvotes=.)(\d+)").Cast<Match>().Select(m => m.Value).ToArray();
+                int Best = 0;
+                int BestPlayerIndex = 0;
+
+                for (int i = 0; i<playernumbers.Length; i++)
+                {
+                    if (Int32.Parse(votes[i]) >= Best) // safe to parse
+                    {
+                        BestPlayerIndex = i;
+                    }
+                }
+                return Int32.Parse(playernumbers[BestPlayerIndex]); //safe to assume no out of index because of DB structure and match
+            }
+            else
+            {
+                return 0;
+            }       
         }
 
+
         public static string GetAllString(Boardgame game)
+            //returns the boardgame values in the order of the BGBuddy database values
         {
-            return game.Title +", "+ game.Year.ToString() + ", " + game.BggRating.ToString() + ", " + game.Complexity.ToString();
+            return "'" + game.BggId.ToString() + "', '" + game.Title +"', '"+ game.Year.ToString() + "', '" + game.MinPlayer.ToString()+ "', '" + game.MaxPlayer.ToString()+ "', '" + game.BestPlayer.ToString() + "', '" 
+                + game.BggRating.ToString("n1") + "', '" + game.Complexity.ToString("n2") + "'";
         }
 
         public static Boardgame CleanDataFromXml(string BggResponse)
+            //using all the helper functions, returns a full boardgame from the BGG API XML
         {
 
             Boardgame Out = new Boardgame()
@@ -87,7 +116,7 @@ namespace bgbuddy
                 BggId = Int32.Parse(Regex.Match(BggResponse, @"(?<=<item type=.boardgame. id=.)\d+").Value),
                 MinPlayer = (int)SecureFloatGet(BggResponse, @"<minplayers value=.\d+", @"(?<=<minplayers value=.)\d+"),
                 MaxPlayer = (int)SecureFloatGet(BggResponse, @"<maxplayers value=.\d+", @"(?<=<maxplayers value=.)\d+"),
-                BestPlayer = 0,
+                BestPlayer = GetBestPlayer(BggResponse),
                 BggRating = SecureFloatGet(BggResponse, @"<average value=.\d", @"(?<=<average value=.)(\d\D\d+)"),
                 Complexity = SecureFloatGet(BggResponse, @"<averageweight value=.\d", @"(?<=<averageweight value=.)\d\D\d+"),
             };
@@ -95,6 +124,7 @@ namespace bgbuddy
         }
 
         private static float SecureFloatGet(string BggResponse, string CheckExist, string Extract)
+            //Helper function for regex, returns a number from an expression found by regex.
         {
             if (Regex.IsMatch(BggResponse, CheckExist))
             {

@@ -13,11 +13,13 @@
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="68*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Add game" Click ="AddThisGame" HorizontalAlignment="Left" Margin="34,104,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <Button Content="Cancel" Click ="CancelButton" HorizontalAlignment="Left" Margin="160,104,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2"/>
+        <Button Content="Add game" Click ="AddThisGame" HorizontalAlignment="Left" Margin="25,104,0,0" VerticalAlignment="Top" Width="86" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button Content="Add And Stay" Click ="AddThisGameStay" HorizontalAlignment="Left" Margin="104,104,0,0" VerticalAlignment="Top" Width="86" Grid.Column="2"/>
 
-        <TextBox Name ="Search" HorizontalAlignment="Left" Margin="60,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="260" Height="26" Grid.Column="2"/>
-        <TextBox HorizontalAlignment="Left" Margin="60,58,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="260" Height="26" Grid.Column="2"/>
+        <Button Content="Cancel" Click ="CancelButton" HorizontalAlignment="Left" Margin="214,104,0,0" VerticalAlignment="Top" Width="86" Grid.Column="2"/>
+
+        <TextBox Name ="Search" HorizontalAlignment="Left" Margin="60,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="260" Height="26" Grid.Column="2" KeyUp="KeyUp"/>
+        <TextBox Name ="Remark" HorizontalAlignment="Left" Margin="60,58,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="260" Height="26" Grid.Column="2" KeyUp="KeyUp"/>
         <Label Content="BGG ID or name:" HorizontalAlignment="Left" Margin="8,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
         <Label Content="Remark (optional):" HorizontalAlignment="Left" Margin="8,58,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
 

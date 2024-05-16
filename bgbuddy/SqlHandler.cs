@@ -39,31 +39,23 @@ namespace bgbuddy
             SQLiteCmd.ExecuteNonQuery();
         }
 
-        static void InsertData(SqliteConnection conn)
+        public static void InsertData(SqliteConnection conn, string Table, string Columns, string Values) 
         {
             SqliteCommand SQLiteCmd;
             SQLiteCmd = conn.CreateCommand();
-            SQLiteCmd.CommandText = "INSERT INTO SampleTable (Col1, Col2) VALUES('Test Text ', 1); ";
+            SQLiteCmd.CommandText = $"INSERT INTO {Table} ({Columns}) VALUES ({Values});";
             SQLiteCmd.ExecuteNonQuery();
         }
 
-        public static string ReadData(SqliteConnection conn, string[] Columns, string Table)
+        public static string ReadData(SqliteConnection conn, string[] Columns, string Table, string OrderBy = "id")
         {
             string ColumnStr = string.Join(" ,", Columns);
             SqliteDataReader SQLiteDatareader;
             SqliteCommand SQLiteCmd;
             SQLiteCmd = conn.CreateCommand();
-            SQLiteCmd.CommandText = $"SELECT {ColumnStr} FROM {Table}";
-            string Out = "";
+            SQLiteCmd.CommandText = $"SELECT {ColumnStr} FROM {Table} ORDER BY {OrderBy}";
+            string Out = string.Join("|", Columns) + "\n";
             SQLiteDatareader = SQLiteCmd.ExecuteReader();
-
-            for (int i = 0; i < Columns.Length; i++)
-            {
-                Out += Columns[i];
-                Out += "\t";
-
-            }
-            Out += "\n";
 
             while (SQLiteDatareader.Read())
             {
@@ -71,12 +63,14 @@ namespace bgbuddy
                 {
 
                     Out += SQLiteDatareader.GetString(i);
-                    Out += "\t";
+                    if (i < Columns.Length - 1)
+                    {
+                        Out += "|";
+                    }
 
                 }
                 Out += "\n";
             }
-
             conn.Close();
             return Out;
         }
