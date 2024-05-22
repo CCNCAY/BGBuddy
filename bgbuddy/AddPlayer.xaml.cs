@@ -20,36 +20,29 @@ namespace bgbuddy
     public partial class AddPlayer : Window
     {
         public AddPlayer()
-        {
-            InitializeComponent();
-        }
+            {InitializeComponent();}
         
         private void AddThisPlayer(object sender, RoutedEventArgs e)
-
         {
             PlayerAdder();
             this.Close();
         }
 
         private void AddThisPlayerStay(object sender, RoutedEventArgs e)
-
-        {
-            PlayerAdder();
-        }
+            { PlayerAdder(); }
 
         private void CancelButton(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+            { this.Close(); }
 
 
 
         private void KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
-            {
-                PlayerAdder();
-            }
+                {PlayerAdder();}
+
+            else if (e.Key == Key.Escape)
+                { this.Close(); }
         }
 
         private void PlayerAdder()

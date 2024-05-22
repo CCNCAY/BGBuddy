@@ -67,12 +67,16 @@ namespace bgbuddy
 
         private void AddSessionButton(object sender, RoutedEventArgs e)
         {
-
+            AddSession Addsession = new AddSession();
+            Addsession.ShowDialog();
+            string[] Columns = ["id", "game_id", "date"];
+            MainTextBox.Text = "All games by id:\n" + MakeTable(SqlHandler.ReadData(SqlHandler.CreateConnection(), Columns, "sessions", "id DESC"));
         }
 
         private void AddLikingButton(object sender, RoutedEventArgs e)
         {
-
+            AddLiking AddLiking = new AddLiking();
+            AddLiking.ShowDialog();
         }
 
         private void EditFriendButton(object sender, RoutedEventArgs e)
@@ -122,7 +126,7 @@ namespace bgbuddy
         private void ShowAll(object sender, RoutedEventArgs e)
         {
             string[] Columns = ["id", "bgg_id", "title", "year", "min_player", "max_player", "best_player", "bgg_rating", "complexity", "remark"];
-            MainTextBox.Text = "All games by id:\n" + MakeTable(SqlHandler.ReadData(SqlHandler.CreateConnection(), Columns, "games", "id"));
+            MainTextBox.Text = "All games by id:\n" + MakeTable(SqlHandler.ReadData(SqlHandler.CreateConnection(), Columns, "games", "title"));
 
         }
 

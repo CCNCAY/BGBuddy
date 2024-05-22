@@ -1,0 +1,29 @@
+﻿<Window x:Class="bgbuddy.AddLiking"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bgbuddy"
+        mc:Ignorable="d"
+        Title="Add Game" Height="200" Width="450"
+        Left="1000" Top="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="68*"/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Add liking" Click ="AddThisLiking" HorizontalAlignment="Left" Margin="38,104,0,0" VerticalAlignment="Top" Width="86" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button Content="Add And Stay" Click ="AddThisLikingStay" HorizontalAlignment="Left" Margin="112,104,0,0" VerticalAlignment="Top" Width="86" Grid.Column="2"/>
+        <Button Content="Cancel" Click ="CancelButton" HorizontalAlignment="Left" Margin="222,104,0,0" VerticalAlignment="Top" Width="86" Grid.Column="2"/>
+
+        <TextBox Name ="Like" HorizontalAlignment="Left" Margin="328,13,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="35" Height="26" Grid.Column="2" KeyUp="KeyUp"/>
+        <Label Content="This person" HorizontalAlignment="Left" Margin="8,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3"/>
+        <Label Content="likes   this game: " HorizontalAlignment="Left" Margin="14,58,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="146"/>
+        <ComboBox Name ="GameBox" Grid.Column="2" Height="26" Margin="0,58,20,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="251" />
+        <Label Content="this much (1 to 5)" HorizontalAlignment="Right" Margin="0,13,60,0" VerticalAlignment="Top" Grid.Column="2"/>
+        <ComboBox x:Name ="PersonBox" Grid.Column="2" Height="26" Margin="0,13,170,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="184" />
+
+
+    </Grid>
+</Window>

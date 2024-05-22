@@ -24,50 +24,38 @@ namespace bgbuddy
     public partial class AddGame : Window
     {
         public AddGame()
-        {
-            InitializeComponent();
-        }
+            { InitializeComponent(); }
 
         private void AddThisGame(object sender, RoutedEventArgs e)
-
         {
-            GameAdder();
-            this.Close();
+          GameAdder();
+          this.Close(); 
         }
 
         private void AddThisGameStay(object sender, RoutedEventArgs e)
-
-        {
-            GameAdder();
-        }
+            {GameAdder();}
 
         private void CancelButton(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-
+            {this.Close();}
 
         private void KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
-            {
-                GameAdder();
-            }
-        }
+                { GameAdder(); }
 
+            else if (e.Key == Key.Escape)
+                { this.Close(); } 
+        }
 
         private void GameAdder()
         //It may happen that a game title is a number, in this case this approach will fetch the wrong game. 
         //Search manually and add by title.
         {
-
             string RemarkInput = Remark.Text;
             string Columns = "'bgg_id', 'title', 'year', 'min_player', 'max_player', 'best_player', 'bgg_rating', 'complexity', 'remark'";
             if (RemarkInput == "")
-            {
-                RemarkInput = " ";
-            }
+            {RemarkInput = " ";}
+
             string SearchInput = Search.Text;
             if (Int32.TryParse(SearchInput, out int SearchInt))
             {
@@ -79,9 +67,7 @@ namespace bgbuddy
 
                 }
                 catch (Exception ex)
-                {
-                    MessageBoxResult AddError = MessageBox.Show(ex.Message, "Error");
-                }
+                    { MessageBoxResult AddError = MessageBox.Show(ex.Message, "Error");}
             }
             else
             {
@@ -93,9 +79,7 @@ namespace bgbuddy
 
                 }
                 catch (Exception ex)
-                {
-                    MessageBoxResult AddError = MessageBox.Show(ex.Message, "Error");
-                }
+                    { MessageBoxResult AddError = MessageBox.Show(ex.Message, "Error"); }
             }
         }
     }
