@@ -20,8 +20,11 @@ namespace bgbuddy
     public partial class AddPlayer : Window
     {
         public AddPlayer()
-            {InitializeComponent();}
-        
+        {
+            InitializeComponent();
+            this.PreviewKeyDown += new KeyEventHandler(KeyUp);
+        }
+
         private void AddThisPlayer(object sender, RoutedEventArgs e)
         {
             PlayerAdder();

@@ -33,6 +33,10 @@ namespace bgbuddy
                 GameBox.Items.Add(new ComboBoxItem { Content = game });
             }
             GameBox.SelectedIndex = 0;
+
+                   
+            this.PreviewKeyDown += new KeyEventHandler(KeyUp);
+
         }
 
 

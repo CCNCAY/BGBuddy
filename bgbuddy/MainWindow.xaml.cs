@@ -77,6 +77,9 @@ namespace bgbuddy
         {
             AddLiking AddLiking = new AddLiking();
             AddLiking.ShowDialog();
+            string[] Columns = ["games.title", "players.name", "game_relations.like_level"];
+            MainTextBox.Text = "All games by id:\n" + MakeTable(SqlHandler.ReadData(SqlHandler.CreateConnection(), Columns, "games join game_relations on games.'id' = game_relations.game_id join players on game_relations.player_id = players.id", "players.name"));
+
         }
 
         private void EditFriendButton(object sender, RoutedEventArgs e)
@@ -86,7 +89,8 @@ namespace bgbuddy
 
         private void EditGameButton(object sender, RoutedEventArgs e)
         {
-     
+            EditGames EditGame = new EditGames();
+            EditGame.ShowDialog();
         }
 
         private void EditSessionButton(object sender, RoutedEventArgs e)

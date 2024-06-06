@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bgbuddy"
         mc:Ignorable="d"
-        Title="Add Game" Height="200" Width="450"
+        Title="Add Liking" Height="200" Width="450"
         Left="1000" Top="500">
     <Grid>
         <Grid.ColumnDefinitions>
